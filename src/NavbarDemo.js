@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ExcelTabCategories from "./ExcelTabCategories";
+import ExpenseTab from "./ExpenseTab";
 
 const NavbarDemo = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -163,6 +165,56 @@ const NavbarDemo = () => {
                   />
                 </svg>
                 <span>Wishlist</span>
+              </button>
+
+              <button
+                onClick={() => navigateTo("expenses")}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 flex items-center space-x-2 ${
+                  activePage === "expenses"
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>Expenses</span>
+              </button>
+              
+              <button
+                onClick={() => navigateTo("excel-categories")}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 flex items-center space-x-2 ${
+                  activePage === "excel-categories"
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>Excel Categories</span>
               </button>
             </div>
 
@@ -431,6 +483,26 @@ const NavbarDemo = () => {
                 Wishlist
               </button>
               <button
+                onClick={() => navigateTo("expenses")}
+                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium ${
+                  activePage === "expenses"
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                Expenses
+              </button>
+              <button
+                onClick={() => navigateTo("excel-categories")}
+                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium ${
+                  activePage === "excel-categories"
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                Excel Categories
+              </button>
+              <button
                 onClick={toggleDarkMode}
                 className="w-full text-left flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
@@ -495,147 +567,181 @@ const NavbarDemo = () => {
 
       {/* Demo content */}
       <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
-        <div
-          className={`mt-8 p-6 rounded-lg ${
-            darkMode ? "bg-gray-900 text-gray-300" : "bg-white text-gray-800"
-          } shadow transition-colors duration-300`}
-        >
-          <h2 className="text-2xl font-bold mb-4">
-            Expense Logger •{" "}
-            {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
-          </h2>
+        {activePage === "expenses" ? (
+          <div className={`mt-8 ${darkMode ? "text-gray-300" : "text-gray-800"} transition-colors duration-300`}>
+            <ExpenseTab />
+          </div>
+        ) : activePage === "excel-categories" ? (
+          <div className={`mt-8 ${darkMode ? "text-gray-300" : "text-gray-800"} transition-colors duration-300`}>
+            <ExcelTabCategories />
+          </div>
+        ) : (
+          <div
+            className={`mt-8 p-6 rounded-lg ${
+              darkMode ? "bg-gray-900 text-gray-300" : "bg-white text-gray-800"
+            } shadow transition-colors duration-300`}
+          >
+            <h2 className="text-2xl font-bold mb-4">
+              Expense Logger •{" "}
+              {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
+            </h2>
 
-          <p className="mb-6">
-            This is a demo of the enhanced navbar component. Try clicking the
-            different navigation items or toggling between light and dark mode.
-            You can also try logging in/out with the buttons below.
-          </p>
+            <p className="mb-6">
+              This is a demo of the enhanced navbar component. Try clicking the
+              different navigation items or toggling between light and dark mode.
+              You can also try logging in/out with the buttons below.
+            </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div
-              className={`p-5 rounded-lg ${
-                darkMode ? "bg-gray-800" : "bg-gray-50"
-              }`}
-            >
-              <h3 className="font-semibold text-lg mb-3">Current State:</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <strong>Active Page:</strong> {activePage}
-                </li>
-                <li>
-                  <strong>Theme:</strong>{" "}
-                  {darkMode ? "Dark Mode" : "Light Mode"}
-                </li>
-                <li>
-                  <strong>Auth Status:</strong>{" "}
-                  {isAuthenticated ? "Logged In" : "Logged Out"}
-                </li>
-                {isAuthenticated && (
+            <div className="grid md:grid-cols-2 gap-6">
+              <div
+                className={`p-5 rounded-lg ${
+                  darkMode ? "bg-gray-800" : "bg-gray-50"
+                }`}
+              >
+                <h3 className="font-semibold text-lg mb-3">Current State:</h3>
+                <ul className="space-y-2 text-sm">
                   <li>
-                    <strong>User:</strong> {username}
+                    <strong>Active Page:</strong> {activePage}
                   </li>
-                )}
-              </ul>
+                  <li>
+                    <strong>Theme:</strong>{" "}
+                    {darkMode ? "Dark Mode" : "Light Mode"}
+                  </li>
+                  <li>
+                  <strong>Auth Status:</strong>{" "}
+                    {isAuthenticated ? "Logged In" : "Logged Out"}
+                  </li>
+                  {isAuthenticated && (
+                    <li>
+                      <strong>User:</strong> {username}
+                    </li>
+                  )}
+                </ul>
 
-              <div className="mt-4 space-y-2">
-                <button
-                  onClick={toggleDarkMode}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm w-full"
-                >
-                  Toggle Dark Mode
-                </button>
-                <button
-                  onClick={toggleAuth}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm w-full"
-                >
-                  {isAuthenticated ? "Log Out" : "Log In"}
-                </button>
+                <div className="mt-4 space-y-2">
+                  <button
+                    onClick={toggleDarkMode}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm w-full"
+                  >
+                    Toggle Dark Mode
+                  </button>
+                  <button
+                    onClick={toggleAuth}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm w-full"
+                  >
+                    {isAuthenticated ? "Log Out" : "Log In"}
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div
-              className={`p-5 rounded-lg ${
-                darkMode ? "bg-gray-800" : "bg-gray-50"
-              }`}
-            >
-              <h3 className="font-semibold text-lg mb-3">Navigation:</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => navigateTo("dashboard")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "dashboard"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Dashboard
-                </button>
-                <button
-                  onClick={() => navigateTo("invoices")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "invoices"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Invoices
-                </button>
-                <button
-                  onClick={() => navigateTo("payment-cards")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "payment-cards"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Payment Cards
-                </button>
-                <button
-                  onClick={() => navigateTo("wishlist")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "wishlist"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Wishlist
-                </button>
-                <button
-                  onClick={() => navigateTo("profile")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "profile"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Profile
-                </button>
-                <button
-                  onClick={() => navigateTo("settings")}
-                  className={`p-2 rounded text-sm ${
-                    activePage === "settings"
-                      ? "bg-indigo-600 text-white"
-                      : darkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-                  }`}
-                >
-                  Settings
-                </button>
+              <div
+                className={`p-5 rounded-lg ${
+                  darkMode ? "bg-gray-800" : "bg-gray-50"
+                }`}
+              >
+                <h3 className="font-semibold text-lg mb-3">Navigation:</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => navigateTo("dashboard")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "dashboard"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={() => navigateTo("invoices")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "invoices"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Invoices
+                  </button>
+                  <button
+                    onClick={() => navigateTo("payment-cards")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "payment-cards"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Payment Cards
+                  </button>
+                  <button
+                    onClick={() => navigateTo("wishlist")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "wishlist"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Wishlist
+                  </button>
+                  <button
+                    onClick={() => navigateTo("profile")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "profile"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Profile
+                  </button>
+                  <button
+                    onClick={() => navigateTo("settings")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "settings"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Settings
+                  </button>
+                  <button
+                    onClick={() => navigateTo("expenses")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "expenses"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Expenses
+                  </button>
+                  <button
+                    onClick={() => navigateTo("excel-categories")}
+                    className={`p-2 rounded text-sm ${
+                      activePage === "excel-categories"
+                        ? "bg-indigo-600 text-white"
+                        : darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    Excel Categories
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
