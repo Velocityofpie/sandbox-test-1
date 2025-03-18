@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-// Import CSS (make sure this imports your file with Tailwind directives)
-import "./styles.css";
+// Import the correct CSS file
+import "./index.css";
 
 import App from "./App";
 
